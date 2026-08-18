@@ -34,7 +34,7 @@
 
 - **Webアプリ公開URL**: (GitHub Pages準備中)
 - **ホスティング**: GitHub Pages (無料 / インストール不要 / スマホ即時利用対応)
-- **ソースコード**: [GitHub Repository (OSS)](https://github.com/tk030-lotto)
+- **ソースコード**: [GitHub Repository](https://github.com/tk030-lotto/nani-wo-tsukuru-ka-kimeyou)
 - **ライセンス**: [MIT License](LICENSE)
 
 ---
