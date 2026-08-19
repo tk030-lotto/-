@@ -160,33 +160,36 @@ function bindEvents() {
     copyToClipboard(promptText, 'Antigravity用プロンプトをコピーしました！');
   });
 
+  // Header Home Click
+  document.getElementById('brand-home')?.addEventListener('click', () => {
+    goToStep(1);
+  });
+
   // Reset Button (Step 5)
   document.getElementById('btn-reset')?.addEventListener('click', () => {
-    if (confirm('入力内容をリセットして最初からやり直しますか？')) {
-      clearState();
-      appState = loadState();
-      restoreInputs();
-      renderIntentOptions();
-      renderThemeTags();
-      goToStep(1);
-      showToast('リセットしました');
-    }
+    clearState();
+    appState = loadState();
+    restoreInputs();
+    renderIntentOptions();
+    renderThemeTags();
+    goToStep(1);
+    showToast('最初からやり直します（リセット完了）');
   });
 }
 
 // Restore UI Input Values from State
 function restoreInputs() {
   const noteInput = document.getElementById('input-custom-note');
-  if (noteInput && appState.customNote) {
-    noteInput.value = appState.customNote;
+  if (noteInput) {
+    noteInput.value = appState.customNote || '';
   }
   const titleInput = document.getElementById('input-decision-title');
-  if (titleInput && appState.decision?.title) {
-    titleInput.value = appState.decision.title;
+  if (titleInput) {
+    titleInput.value = appState.decision?.title || '';
   }
   const descInput = document.getElementById('input-decision-desc');
-  if (descInput && appState.decision?.description) {
-    descInput.value = appState.decision.description;
+  if (descInput) {
+    descInput.value = appState.decision?.description || '';
   }
 }
 
