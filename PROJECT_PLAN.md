@@ -1,4 +1,4 @@
-﻿# 何を作るか決めよう。 - 統合開発計画書
+# 何を作るか決めよう。 - 統合開発計画書
 
 本ファイルは、AIがプロジェクトの要件、構成、進捗を同期するためのマスター指示書です。
 
@@ -14,7 +14,7 @@
 ## 2. マイルストーン ＆ 進行ステータス
 
 - [x] **Step 1: プロジェクト初期化 ＆ ドキュメント配置**
-- [ ] **Step 2: HTML構造とデザインシステム（tokens/components/screens）**
-- [ ] **Step 3: 状態管理 & プロンプト生成エンジン（js/storage.js, js/prompt.js, js/app.js）**
-- [ ] **Step 4: 動作検証・4段階品質監査**
+- [x] **Step 2: HTML構造とデザインシステム（tokens/components/screens）**
+- [x] **Step 3: 状態管理 & プロンプト生成エンジン（js/storage.js, js/prompt.js, js/app.js）**
+- [x] **Step 4: 動作検証・4段階品質監査**
 - [ ] **Step 5: GitHub Pages 本番公開・永続同期**

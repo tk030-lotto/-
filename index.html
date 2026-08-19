@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>何を作るか決めよう。 - AI開発アイデアアシスタント</title>
+  <meta name="description" content="作りたいものが思いつかない人へ。気分や興味を選ぶだけで、AIと一緒に作りやすいツールのアイデアを発見できる無料Webツール。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-title">何を作るか決めよう。</div>
+      <div class="brand-badge">⚡ AI開発ナビ 第2弾</div>
+    </header>
+
+    <!-- Step Progress Bar -->
+    <nav class="step-bar" aria-label="進行ステップ">
+      <div class="step-bar-track"></div>
+      <div class="step-bar-progress" id="step-progress" style="width: 0%;"></div>
+      <div class="step-item active" data-step="1">1</div>
+      <div class="step-item" data-step="2">2</div>
+      <div class="step-item" data-step="3">3</div>
+      <div class="step-item" data-step="4">4</div>
+      <div class="step-item" data-step="5">5</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="app-main">
+
+      <!-- Step 1: Welcome Screen -->
+      <section class="screen active" id="screen-1" aria-labelledby="screen1-title">
+        <div class="welcome-hero">
+          <div class="welcome-badge">📱 スマホ手元ガイド × PC開発</div>
+          <h1 class="welcome-title" id="screen1-title">作りたいものを、<br>AIと一緒に決めよう。</h1>
+          <p class="welcome-catch">
+            「次は何を作ればいいか分からない…」<br>
+            迷っている今の気分や興味を選ぶだけで、AIがあなたにぴったりのツールアイデアを提案します。
+          </p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div>
+              <div class="feature-title">1. 気分・興味をポチポチ選ぶ</div>
+              <div class="feature-desc">「小さく作りたい」「作業を楽にしたい」など、直感で選ぶだけ。</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💬</div>
+            <div>
+              <div class="feature-title">2. AIにアイデアを出してもらう</div>
+              <div class="feature-desc">自動生成された質問文をコピーしてAIに送るだけ。</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚀</div>
+            <div>
+              <div class="feature-title">3. Antigravity IDEで即開発</div>
+              <div class="feature-desc">決めたアイデアの開発用プロンプトをそのままPCへ引き渡し。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-actions">
+          <button type="button" class="btn btn-primary btn-lg btn-full" id="btn-start">
+            アイデア探しをはじめる ✨
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 2: Intent & Mood Screen -->
+      <section class="screen" id="screen-2" aria-labelledby="screen2-title">
+        <div class="screen-header">
+          <h2 class="screen-title" id="screen2-title">どんなものが作りたい？</h2>
+          <p class="screen-desc">今の気分ややってみたい方向性を1つ選んでください。</p>
+        </div>
+
+        <!-- Intent Cards Container -->
+        <div class="intent-grid" id="intent-container">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="form-group" style="margin-top: var(--space-4);">
+          <label class="form-label">
+            興味のあるテーマ・ジャンル
+            <span class="badge-optional">複数選択可</span>
+          </label>
+          <div class="tag-grid" id="tags-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: var(--space-4);">
+          <label class="form-label" for="input-custom-note">
+            気になっていること・補足メモ
+            <span class="badge-optional">任意・空欄OK</span>
+          </label>
+          <textarea class="textarea" id="input-custom-note" placeholder="例: 最近PDFの文字起こしが多い、YouTubeのメモを取りたい、など"></textarea>
+        </div>
+
+        <div class="screen-actions">
+          <button type="button" class="btn btn-outline" id="btn-step2-prev">戻る</button>
+          <button type="button" class="btn btn-primary btn-full" id="btn-step2-next">AIへの質問文を作成 💬</button>
+        </div>
+      </section>
+
+      <!-- Step 3: AI Prompt Screen -->
+      <section class="screen" id="screen-3" aria-labelledby="screen3-title">
+        <div class="screen-header">
+          <h2 class="screen-title" id="screen3-title">AIにアイデアを聞いてみよう</h2>
+          <p class="screen-desc">以下の質問文をコピーして、AI（ChatGPT / Claude / Gemini等）に送信してください。</p>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">
+            <span>生成されたAI質問プロンプト</span>
+          </div>
+          <div class="prompt-box" id="prompt-ideation">生成中...</div>
+        </div>
+
+        <button type="button" class="btn btn-copy btn-lg btn-full" id="btn-copy-ideation" style="margin-bottom: var(--space-4);">
+          📋 質問文をワンタップでコピー
+        </button>
+
+        <div class="card" style="margin-bottom: var(--space-4); padding: var(--space-4);">
+          <div style="font-size: var(--text-xs); font-weight: 700; color: var(--text-secondary); margin-bottom: var(--space-2);">
+            AIサービスを開く（別タブ）
+          </div>
+          <div class="ai-links">
+            <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" class="ai-link-btn">🤖 ChatGPT</a>
+            <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="ai-link-btn">🧠 Claude</a>
+            <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" class="ai-link-btn">✨ Gemini</a>
+          </div>
+        </div>
+
+        <div class="screen-actions">
+          <button type="button" class="btn btn-outline" id="btn-step3-prev">戻る</button>
+          <button type="button" class="btn btn-primary btn-full" id="btn-step3-next">AIの回答を確認した（次へ） ➡️</button>
+        </div>
+      </section>
+
+      <!-- Step 4: Decision Screen -->
+      <section class="screen" id="screen-4" aria-labelledby="screen4-title">
+        <div class="screen-header">
+          <h2 class="screen-title" id="screen4-title">作るアイデアを決めよう</h2>
+          <p class="screen-desc">AIが提案してくれた中から、「これを作ってみたい！」と思うものを1つ入力してください。</p>
+        </div>
+
+        <div class="card decision-box">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="input-decision-title">ツールのタイトル（仮称） <span style="color: var(--accent-primary);">*</span></label>
+            <input type="text" class="input-text" id="input-decision-title" placeholder="例: ワンクリックPDFテキスト抽出ツール">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="input-decision-desc">ツールの概要・作りたい機能</label>
+            <textarea class="textarea" id="input-decision-desc" placeholder="例: PDFファイルをドラッグ＆ドロップすると、中のテキストを自動抽出してコピーできるWebアプリ。"></textarea>
+          </div>
+        </div>
+
+        <div class="screen-actions">
+          <button type="button" class="btn btn-outline" id="btn-step4-prev">戻る</button>
+          <button type="button" class="btn btn-primary btn-full" id="btn-step4-next">このツールを作ることに決定！ 🚀</button>
+        </div>
+      </section>
+
+      <!-- Step 5: Complete & Choice Screen -->
+      <section class="screen" id="screen-5" aria-labelledby="screen5-title">
+        <div class="screen-header">
+          <h2 class="screen-title" id="screen5-title">準備完了！次へ進もう</h2>
+          <p class="screen-desc">作りたいものが決まりました！次の進め方を選んでください。</p>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-card">
+          <div style="font-size: var(--text-xs); color: #38bdf8; font-weight: 700; margin-bottom: 4px;">決定したツール</div>
+          <div class="summary-title" id="summary-title">ツール名</div>
+          <div class="summary-desc" id="summary-desc">概要</div>
+        </div>
+
+        <!-- Choice 1: Direct Dev in Antigravity -->
+        <div class="choice-section">
+          <div class="choice-card highlight">
+            <div class="choice-header">
+              <span class="choice-badge choice-badge-primary">おすすめ</span>
+              <span class="choice-name">PCのAntigravity IDEで直接開発を進める</span>
+            </div>
+            <p class="choice-desc">以下の開発開始プロンプトをコピーし、PC側のAntigravity IDEチャット欄に貼り付けるだけで開発が始まります。</p>
+            
+            <div class="prompt-box" id="prompt-dev" style="max-height: 180px; margin-top: var(--space-2);">生成中...</div>
+            
+            <button type="button" class="btn btn-copy btn-full" id="btn-copy-dev" style="margin-top: var(--space-2);">
+              📋 Antigravity用プロンプトをコピー
+            </button>
+          </div>
+
+          <!-- Choice 2: Step 1 Link -->
+          <div class="choice-card">
+            <div class="choice-header">
+              <span class="choice-badge choice-badge-secondary">じっくり進めたい方</span>
+              <span class="choice-name">第1弾「躊躇してないで、とにかく作ってみよう。」へ進む</span>
+            </div>
+            <p class="choice-desc">要件定義や仕様書作成を対話形式でじっくり詰めたい方は、第1弾ツールをご利用いただけます。</p>
+            
+            <a href="https://tk030-lotto.github.io/AI-/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-full" style="margin-top: var(--space-2);">
+              第1弾ツールを開く（別タブ） 🔗
+            </a>
+          </div>
+        </div>
+
+        <div class="screen-actions" style="justify-content: space-between;">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-reset">最初からやり直す</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>© 2026 tk030. MIT License.</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container">
+    <div class="toast" id="toast">コピーしました！</div>
+  </div>
+
+  <!-- App Script (ES Module) -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
