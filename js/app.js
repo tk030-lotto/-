@@ -27,12 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
   renderIntentOptions();
   renderThemeTags();
   bindEvents();
-  
-  // Restore saved state inputs
+  setupAutoResize();
   restoreInputs();
-  
-  // Go to saved step
-  goToStep(appState.currentStep || 1);
+
+  // History state pop handling (browser back/forward)
+  window.addEventListener('popstate', (e) => {
+    const step = e.state?.step || 1;
+    goToStep(step, false);
+  });
+
+  const initialStep = appState.currentStep || 1;
+  history.replaceState({ step: initialStep }, '', '');
+  goToStep(initialStep, false);
 });
 
 // Render Intent Options (Step 2)
@@ -44,12 +50,12 @@ function renderIntentOptions() {
     const isSelected = appState.intentId === opt.id;
     return `
       <div class="card card-interactive intent-card ${isSelected ? 'selected' : ''}" data-intent-id="${opt.id}">
-        <div class="intent-icon">${opt.icon}</div>
+        <div class="intent-num">${opt.number}</div>
         <div class="intent-body">
           <div class="intent-name">${opt.title}</div>
           <div class="intent-desc">${opt.desc}</div>
         </div>
-        <div class="intent-check">${isSelected ? '✓' : ''}</div>
+        <div class="intent-check">${isSelected ? 'OK' : ''}</div>
       </div>
     `;
   }).join('');
@@ -70,17 +76,27 @@ function renderThemeTags() {
   }).join('');
 }
 
+// Auto-resize for all textareas
+function setupAutoResize() {
+  document.querySelectorAll('textarea').forEach(textarea => {
+    const resize = () => {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight + 4}px`;
+    };
+    textarea.addEventListener('input', resize);
+    setTimeout(resize, 0);
+  });
+}
+
 // Bind Global UI Events
 function bindEvents() {
-  // Navigation: Step 1 -> Step 2
   document.getElementById('btn-start')?.addEventListener('click', () => goToStep(2));
 
   // Intent Card Click
   document.getElementById('intent-container')?.addEventListener('click', (e) => {
     const card = e.target.closest('.intent-card');
     if (!card) return;
-    const intentId = card.getAttribute('data-intent-id');
-    appState.intentId = intentId;
+    appState.intentId = card.getAttribute('data-intent-id');
     saveState(appState);
     renderIntentOptions();
   });
@@ -113,11 +129,9 @@ function bindEvents() {
     saveState(appState);
   });
 
-  // Navigation: Step 2 -> Step 3
+  // Step Navigations
   document.getElementById('btn-step2-next')?.addEventListener('click', () => goToStep(3));
   document.getElementById('btn-step2-prev')?.addEventListener('click', () => goToStep(1));
-
-  // Navigation: Step 3 -> Step 4
   document.getElementById('btn-step3-next')?.addEventListener('click', () => goToStep(4));
   document.getElementById('btn-step3-prev')?.addEventListener('click', () => goToStep(2));
 
@@ -126,6 +140,7 @@ function bindEvents() {
   const descInput = document.getElementById('input-decision-desc');
 
   titleInput?.addEventListener('input', (e) => {
+    titleInput.classList.remove('input-error');
     if (!appState.decision) appState.decision = {};
     appState.decision.title = e.target.value;
     saveState(appState);
@@ -137,12 +152,13 @@ function bindEvents() {
     saveState(appState);
   });
 
-  // Navigation: Step 4 -> Step 5
+  // Step 4 Next (with error highlight instead of native alert)
   document.getElementById('btn-step4-next')?.addEventListener('click', () => {
     const title = titleInput?.value.trim() || '';
     if (!title) {
-      alert('ツールのタイトル（仮称）を入力してください。');
+      titleInput?.classList.add('input-error');
       titleInput?.focus();
+      showToast('ツールのタイトル（仮称）を入力してください', true);
       return;
     }
     goToStep(5);
@@ -152,12 +168,12 @@ function bindEvents() {
   // Copy Buttons
   document.getElementById('btn-copy-ideation')?.addEventListener('click', () => {
     const promptText = document.getElementById('prompt-ideation')?.innerText || '';
-    copyToClipboard(promptText, 'AI質問文をコピーしました！');
+    copyToClipboard(promptText, 'AI質問文をコピーしました');
   });
 
   document.getElementById('btn-copy-dev')?.addEventListener('click', () => {
     const promptText = document.getElementById('prompt-dev')?.innerText || '';
-    copyToClipboard(promptText, 'Antigravity用プロンプトをコピーしました！');
+    copyToClipboard(promptText, 'Antigravity用プロンプトをコピーしました');
   });
 
   // Header Home Click
@@ -180,23 +196,24 @@ function bindEvents() {
 // Restore UI Input Values from State
 function restoreInputs() {
   const noteInput = document.getElementById('input-custom-note');
-  if (noteInput) {
-    noteInput.value = appState.customNote || '';
-  }
+  if (noteInput) noteInput.value = appState.customNote || '';
   const titleInput = document.getElementById('input-decision-title');
   if (titleInput) {
     titleInput.value = appState.decision?.title || '';
+    titleInput.classList.remove('input-error');
   }
   const descInput = document.getElementById('input-decision-desc');
-  if (descInput) {
-    descInput.value = appState.decision?.description || '';
-  }
+  if (descInput) descInput.value = appState.decision?.description || '';
 }
 
-// Step Navigation
-function goToStep(stepNum) {
+// Step Navigation with History Support
+function goToStep(stepNum, pushToHistory = true) {
   appState.currentStep = stepNum;
   saveState(appState);
+
+  if (pushToHistory && window.history) {
+    history.pushState({ step: stepNum }, '', '');
+  }
 
   // Switch Screens
   Object.keys(screens).forEach(key => {
@@ -241,12 +258,17 @@ function goToStep(stepNum) {
     if (devPromptBox) devPromptBox.innerText = buildDevPrompt(appState);
   }
 
-  // Scroll to top
+  // Trigger resize on visible textareas
+  document.querySelectorAll('textarea').forEach(ta => {
+    ta.style.height = 'auto';
+    ta.style.height = `${ta.scrollHeight + 4}px`;
+  });
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Reliable Copy to Clipboard
-function copyToClipboard(text, successMessage = 'コピーしました！') {
+// Reliable Copy to Clipboard without native alert
+function copyToClipboard(text, successMessage = 'コピーしました') {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(() => {
       showToast(successMessage);
@@ -268,15 +290,20 @@ function fallbackCopy(text, successMessage) {
     document.execCommand('copy');
     showToast(successMessage);
   } catch (err) {
-    alert('コピーに失敗しました。手動でテキストを選択してコピーしてください。');
+    showToast('テキストを手動で選択してコピーしてください', true);
   }
   document.body.removeChild(textArea);
 }
 
 // Toast Display
-function showToast(message) {
+function showToast(message, isError = false) {
   if (!toastEl) return;
   toastEl.innerText = message;
+  if (isError) {
+    toastEl.classList.add('toast-error');
+  } else {
+    toastEl.classList.remove('toast-error');
+  }
   toastEl.classList.add('show');
 
   if (toastTimeout) clearTimeout(toastTimeout);
