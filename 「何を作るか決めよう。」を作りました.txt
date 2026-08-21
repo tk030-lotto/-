@@ -418,13 +418,13 @@ AIに何かを作ってもらうことが目的ではありません。
 
 **Webアプリ：**
 
-[「何を作るか決めよう。」](https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/)
+[「何を作るか決めよう。」](https://tk030-lotto.github.io/AI-/?utm_source=chatgpt.com)
 
 インストール不要、無料で使えるWebアプリです。
 
 **ソースコード：**
 
-[GitHubリポジトリ](https://github.com/tk030-lotto/nani-wo-tsukuru-ka-kimeyou)
+[GitHubリポジトリ](https://github.com/tk030-lotto/AI-/?utm_source=chatgpt.com)
 
 MIT Licenseで公開しています。
 
