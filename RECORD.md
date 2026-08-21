@@ -68,10 +68,10 @@
   - `.gitignore`: 一時フレームフォルダを除外設定。
 - **進捗ステータス**: note/X兼用デモGIF画像作成完了。
 
-### 2026-08-21: GitHub Pages公開準備（Privateリポジトリ維持）
+### 2026-08-21: GitHub Pages本番公開・デプロイ完了（Public公開）
 - **変更概要**:
-  - `index.html`: 相対パス・アセット読み込みの検証完了（GitHub Pagesサブディレクトリ配信対応）。
-  - `README.md`: 公開予定URL（`https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/`）を記載。
-  - `PROJECT_PLAN.md`: Step 5（GitHub Pages公開準備）を完了に更新。
-  - リポジトリの可視性はPrivateを維持。
-- **進捗ステータス**: GitHub Pages公開準備完了。
+  - GitHubリポジトリ `tk030-lotto/nani-wo-tsukuru-ka-kimeyou` の可視性を Public に変更。
+  - GitHub Pages（`main` ブランチ root 配信）を有効化し、本番デプロイ完了。
+  - 公開URL: `https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/`
+  - `README.md`, `PROJECT_PLAN.md`, `RECORD.md` を本番公開完了に同期更新。
+- **進捗ステータス**: Step 5完了。GitHub Pages本番公開完了。

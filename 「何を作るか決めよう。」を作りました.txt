@@ -2,6 +2,9 @@
 
 ## AI開発の次の一歩を案内するガイドです
 
+Webアプリ（無料・インストール不要）：
+https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/
+
 前回、**「躊躇してないで、とにかく作ってみよう。」**というツールを作りました。
 
 名前の通り、AI開発を始めたいけれど、
@@ -418,13 +421,13 @@ AIに何かを作ってもらうことが目的ではありません。
 
 **Webアプリ：**
 
-[「何を作るか決めよう。」](https://tk030-lotto.github.io/AI-/?utm_source=chatgpt.com)
+[「何を作るか決めよう。」](https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/)
 
 インストール不要、無料で使えるWebアプリです。
 
 **ソースコード：**
 
-[GitHubリポジトリ](https://github.com/tk030-lotto/AI-/?utm_source=chatgpt.com)
+[GitHubリポジトリ](https://github.com/tk030-lotto/nani-wo-tsukuru-ka-kimeyou)
 
 MIT Licenseで公開しています。
 
@@ -435,3 +438,5 @@ MIT Licenseで公開しています。
 > **「何を作るか決めよう。」**
 
 です。
+
+#AI開発 #Antigravity #Webツール #個人開発 #プログラミング初心者
