@@ -67,3 +67,11 @@
   - `demo.gif`: 実際のWebツール画面（スマホレイアウト: 400x780）からStep 1〜5（方向性・タグ選択、AI質問文生成＆コピー、アイデア決定入力、開発プロンプト生成＆コピー）の操作フローをキャプチャし、note記事およびX投稿で兼用できる高画質・超軽量デモGIF画像（0.55 MB, 116フレーム）を生成・配置。
   - `.gitignore`: 一時フレームフォルダを除外設定。
 - **進捗ステータス**: note/X兼用デモGIF画像作成完了。
+
+### 2026-08-21: GitHub Pages公開準備（Privateリポジトリ維持）
+- **変更概要**:
+  - `index.html`: 相対パス・アセット読み込みの検証完了（GitHub Pagesサブディレクトリ配信対応）。
+  - `README.md`: 公開予定URL（`https://tk030-lotto.github.io/nani-wo-tsukuru-ka-kimeyou/`）を記載。
+  - `PROJECT_PLAN.md`: Step 5（GitHub Pages公開準備）を完了に更新。
+  - リポジトリの可視性はPrivateを維持。
+- **進捗ステータス**: GitHub Pages公開準備完了。

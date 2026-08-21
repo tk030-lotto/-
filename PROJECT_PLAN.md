@@ -17,4 +17,4 @@
 - [x] **Step 2: HTML構造とデザインシステム（tokens/components/screens）**
 - [x] **Step 3: 状態管理 & プロンプト生成エンジン（js/storage.js, js/prompt.js, js/app.js）**
 - [x] **Step 4: 動作検証・4段階品質監査**
-- [ ] **Step 5: GitHub Pages 本番公開・永続同期**
+- [x] **Step 5: GitHub Pages 公開準備完了（Privateリポジトリ維持・パス検証済）**
